@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 1px 1px 5px black;
+  margin-bottom: 10px;
+}
+
+.page-title {
+  margin: 20px;
+}
+.page-title h1 {
+  font-size: 40px;
+  color: rgb(52, 45, 45);
+}
+
+.cart-button {
+  height: 50px;
+  width: 50px;
+  margin: 20px;
+  position: relative;
+}
+.cart-button img {
+  height: 100%;
+  width: 100%;
+}
+.cart-button .cart-quantity {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  color: white;
+  top: 0;
+  right: 0;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#product-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+}
+
+.product {
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-container {
+  width: 300px;
+  height: 200px;
+  text-align: center;
+}
+.img-container img {
+  width: 80%;
+  height: 100%;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+.title,
+.price {
+  margin: 10px;
+  width: 250px;
+  text-align: center;
+}
+
+.add-to-cart {
+  width: 90%;
+  height: 50px;
+  margin: auto;
+  background-color: aqua;
+  border: 0;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.update-quantity {
+  display: flex;
+  justify-content: center;
+}
+
+.decrease,
+.quantity,
+.increase {
+  width: 50px;
+}
+
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.decrease,
+.increase {
+  background-color: #35A29F;
+  border: 0;
+  height: 50px;
+  border-radius: 5px;
+}
+
+.total {
+  width: 80%;
+  margin: auto;
+}
+.total .total-title {
+  width: 100%;
+}
+.total .total-title h2 {
+  font-size: 50px;
+}
+.total .total-info {
+  display: flex;
+  justify-content: space-between;
+}
+.total .total-info > * {
+  margin: 20px;
+}
+.total .total-info .titles > h2,
+.total .total-info .prices > h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+hr {
+  width: 80%;
+  margin: auto;
+}/*# sourceMappingURL=cart.css.map */

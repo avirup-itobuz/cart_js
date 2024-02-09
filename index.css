@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 1px 1px 5px black;
+  margin-bottom: 10px;
+}
+
+.page-title {
+  margin: 20px;
+}
+.page-title h1 {
+  font-size: 40px;
+  color: rgb(52, 45, 45);
+}
+
+.cart-button {
+  height: 50px;
+  width: 50px;
+  margin: 20px;
+  position: relative;
+}
+.cart-button img {
+  height: 100%;
+  width: 100%;
+}
+.cart-button .cart-quantity {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  color: white;
+  top: 0;
+  right: 0;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+}
+
+.product {
+  width: 280px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid grey;
+  box-shadow: 1px 1px 5px grey;
+}
+
+.img-container {
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  padding: 10px;
+}
+.img-container img {
+  width: 80%;
+  height: 100%;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+.title,
+.price {
+  margin: 10px;
+}
+
+.add-to-cart {
+  width: 90%;
+  height: 50px;
+  margin: auto;
+  margin-bottom: 10px;
+  background-color: #55a09e;
+  color: white;
+  border-radius: 5px;
+  border: 0;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.update-quantity {
+  display: flex;
+  justify-content: center;
+}
+
+.decrease,
+.quantity,
+.increase {
+  width: 33%;
+  margin: 0px 10px 10px 10px;
+}
+
+.decrease,
+.increase {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.decrease,
+.increase {
+  background-color: #35A29F;
+  color: white;
+  border-radius: 5px;
+  border: 0;
+  height: 50px;
+}/*# sourceMappingURL=index.css.map */
