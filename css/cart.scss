@@ -8,6 +8,10 @@ a {
     text-decoration: none;
 }
 
+button {
+    cursor: pointer;
+}
+
 .nav {
     display: flex;
     justify-content: space-between;
@@ -50,9 +54,12 @@ a {
     }
 }
 
+
+
+
 #product-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 80%;
@@ -60,21 +67,19 @@ a {
 }
 
 .product {
-    width: 280px;
+    width: 100%;
     margin: 10px;
+    padding: 10px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 5px;
-    border: 1px solid grey;
-    box-shadow: 1px 1px 5px grey;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .img-container {
-    width: 100%;
+    width: 300px;
     height: 200px;
     text-align: center;
-    padding: 10px;
 
     img {
         width: 80%;
@@ -88,16 +93,15 @@ a {
 .title,
 .price {
     margin: 10px;
+    width: 250px;
+    text-align: center;
 }
 
 .add-to-cart {
     width: 90%;
     height: 50px;
     margin: auto;
-    margin-bottom: 10px;
-    background-color: #55a09e;
-    color: white;
-    border-radius: 5px;
+    background-color: aqua;
     border: 0;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -110,13 +114,7 @@ a {
 .decrease,
 .quantity,
 .increase {
-    width: 33%;
-    margin: 0px 10px 10px 10px;
-}
-
-.decrease,
-.increase {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 50px;
 }
 
 .quantity {
@@ -128,8 +126,43 @@ a {
 .decrease,
 .increase {
     background-color: #35A29F;
-        color: white;
-    border-radius: 5px;
     border: 0;
     height: 50px;
+    border-radius: 5px;
+}
+
+.total {
+    width: 80%;
+    margin: auto;
+
+    .total-title {
+        width: 100%;
+
+        h2 {
+            font-size: 50px;
+        }
+    }
+
+    .total-info {
+        display: flex;
+        justify-content: space-between;
+
+        &>* {
+            margin: 20px;
+        }
+
+        .titles>h2,
+        .prices>h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+    }
+}
+
+
+
+hr {
+    width: 80%;
+    margin: auto;
 }

@@ -1,129 +1,93 @@
+import { addToCart, removeItem } from "./helper/helper.js";
+import { data } from "./db/db.js";
 if (!localStorage.getItem("products")) {
-  fetch("./db.json")
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      localStorage.setItem("products", JSON.stringify(data));
-      if (!localStorage.getItem("cart")) {
-        localStorage.setItem("cart", []);
-      }
-    });
+  localStorage.setItem("products", JSON.stringify(data));
+  if (!localStorage.getItem("cart")) {
+    localStorage.setItem("cart", []);
+  }
 }
 var products = [];
 var cart = [];
 
-function addToCart(id) {
-  products = JSON.parse(localStorage.getItem("products"));
-  if (localStorage.getItem("cart")) {
-    cart = JSON.parse(localStorage.getItem("cart"));
-  }
-  let product = products.find((product) => product.id == id);
-  for (let product of products) {
-    if (product.id == id) {
-      product.quantity++;
-    }
-  }
-  if (cart.length == 0) {
-    cart.push(product);
-  } else {
-    let response = cart.find((ele) => ele.id == id);
-    if (response === undefined) cart.push(product);
-    else {
-      for (let product of cart) {
-        if (product.id == id) {
-          product.quantity++;
-        }
-      }
-    }
-  }
-  localStorage.setItem("products", JSON.stringify(products));
-  localStorage.setItem("cart", JSON.stringify(cart));
-  loadProducts();
-}
-
-function removeItem(id) {
-  products = JSON.parse(localStorage.getItem("products"));
-  cart = JSON.parse(localStorage.getItem("cart"));
-  for (let product of products) {
-    if (product.id == id) {
-      if (product.quantity > 0) product.quantity--;
-    }
-  }
-  localStorage.setItem("products", JSON.stringify(products));
-  for (let product of cart) {
-    if (product.id == id) {
-      product.quantity--;
-      if (product.quantity == 0) {
-        deleteItem(id);
-      } else {
-        localStorage.setItem("cart", JSON.stringify(cart));
-      }
-    }
-  }
-  loadProducts();
-}
-
-function deleteItem(id) {
-  cart = JSON.parse(localStorage.getItem("cart"));
-  let temp = cart.filter((item) => item.id != id);
-  localStorage.setItem("cart", JSON.stringify(temp));
-  loadProducts();
-}
-
 function loadProducts() {
   const productContainer = document.getElementById("product-container");
-  products = products = JSON.parse(localStorage.getItem("products"));
+  productContainer.innerHTML = "";
+  products = JSON.parse(localStorage.getItem("products"));
   if (localStorage.getItem("cart"))
     cart = JSON.parse(localStorage.getItem("cart"));
-  const productsData = products
+  products
     .map((product) => {
-      if (product.quantity > 0)
-        return `
-    <div class="product">
-      <div class="img-container">
-        <img src=${product.images[0]} alt="product-img" />
-      </div>
-      <h2 class="title">${product.title}</h2>
-      <h3 class="price">$${product.price}</h3>
-      <div class="update-quantity">
-        <button class="decrease" id="${product.id}" onclick="decrease(this)">-</button>
-        <div class="quantity">${product.quantity}</div>
-        <button class="increase" id="${product.id}" onclick="increase(this)">+</button>
-      </div>
-    </div>
-    `;
-      else
-        return `
-    <div class="product">
-      <div class="img-container">
-        <img src=${product.images[0]} alt="product-img" />
-      </div>
-      <h2 class="title">${product.title}</h2>
-      <h3 class="price">$${product.price}</h3>
-      <button class="add-to-cart" id="${product.id}" onclick="addCart(this)">Add to Cart</button>
-    </div>`;
+      const product_div = document.createElement("div");
+      product_div.setAttribute("class", "product");
+      const img_container = document.createElement("div");
+      img_container.setAttribute("class", "img-container");
+      const img = document.createElement("img");
+      img.setAttribute("src", `${product.images[0]}`);
+      img_container.appendChild(img);
+      product_div.appendChild(img_container);
+      const h2 = document.createElement("h2");
+      h2.setAttribute("class", "title");
+      h2.innerText = `${product.title}`;
+      const h3 = document.createElement("h3");
+      h3.setAttribute("class", "price");
+      h3.innerText = `$${product.price}`;
+      product_div.append(h2, h3);
+      if (product.quantity > 0) {
+        const updateQuantity = document.createElement("div");
+        updateQuantity.setAttribute("class", "update-quantity");
+        const decrease = document.createElement("button");
+        decrease.setAttribute("class", "decrease");
+        decrease.dataset.id = `${product.id}`;
+        decrease.innerText = "-";
+        decrease.addEventListener("click", decreaseCart);
+        const quantity = document.createElement("div");
+        quantity.setAttribute("class", "quantity");
+        quantity.innerText = `${product.quantity}`;
+        const increase = document.createElement("button");
+        increase.setAttribute("class", "increase");
+        increase.dataset.id = `${product.id}`;
+        increase.innerText = "+";
+        increase.addEventListener("click", increaseCart);
+        updateQuantity.append(decrease, quantity, increase);
+        product_div.append(updateQuantity);
+      } else {
+        const addButton = document.createElement("button");
+        addButton.setAttribute("class", "add-to-cart");
+        addButton.dataset.id = `${product.id}`;
+        addButton.innerText = "Add to Cart";
+        addButton.addEventListener("click", increaseCart);
+        product_div.append(addButton);
+      }
+      productContainer.appendChild(product_div);
     })
     .join("");
 
-  productContainer.innerHTML = productsData;
   let count = 0;
   for (let product of cart) {
     count += product.quantity;
   }
-  console.log(count);
   const cartBtn = document.getElementById("cart-quantity");
   cartBtn.innerText = count;
 }
-
-function addCart(e) {
-  addToCart(parseInt(e.id));
+function increaseCart(e) {
+  console.log(e.target.dataset.id);
+  products = JSON.parse(localStorage.getItem("products"));
+  if (localStorage.getItem("cart"))
+    cart = JSON.parse(localStorage.getItem("cart"));
+  const data = addToCart(parseInt(e.target.dataset.id), products, cart);
+  localStorage.setItem("products", JSON.stringify(data.products));
+  localStorage.setItem("cart", JSON.stringify(data.cart));
+  loadProducts();
 }
-function increase(e) {
-  addToCart(parseInt(e.id));
-}
-function decrease(e) {
-  removeItem(parseInt(e.id));
+function decreaseCart(e) {
+  console.log(e.target.dataset.id);
+  products = JSON.parse(localStorage.getItem("products"));
+  if (localStorage.getItem("cart"))
+    cart = JSON.parse(localStorage.getItem("cart"));
+  const data = removeItem(parseInt(e.target.dataset.id), products, cart);
+  localStorage.setItem("products", JSON.stringify(data.products));
+  localStorage.setItem("cart", JSON.stringify(data.cart));
+  loadProducts();
 }
 
 if (!localStorage.getItem("products")) {
