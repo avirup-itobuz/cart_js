@@ -1,14 +1,9 @@
 import { addToCart, removeItem } from "../../helper/helper.js";
-
 import { data } from "../../db/db.js";
-if (!localStorage.getItem("products")) {
-  localStorage.setItem("products", JSON.stringify(data));
-  if (!localStorage.getItem("cart")) {
-    localStorage.setItem("cart", []);
-  }
-}
+
 var products = [];
 var cart = [];
+const productContainer = document.getElementById("product-container");
 
 function increaseCart(e) {
   console.log(e.target.dataset.id);
@@ -32,11 +27,10 @@ function decreaseCart(e) {
 }
 
 function loadProducts() {
-  const productContainer = document.getElementById("product-container");
   productContainer.innerHTML = "";
   products = products = JSON.parse(localStorage.getItem("products"));
   cart = JSON.parse(localStorage.getItem("cart"));
-  const productsData = cart
+  cart
     .map((product) => {
       const productDiv = document.createElement("div");
       productDiv.setAttribute("class", "product");
@@ -48,7 +42,6 @@ function loadProducts() {
       const h2 = document.createElement("h2");
       h2.innerHTML = `${product.title}`;
       h2.setAttribute("class", "title");
-
       const updateQuantity = document.createElement("div");
       updateQuantity.setAttribute("class", "update-quantity");
       const decrease = document.createElement("button");
@@ -79,7 +72,6 @@ function loadProducts() {
     count += product.quantity;
     total += parseInt(product.quantity) * parseInt(product.price);
   }
-  console.log(count);
   const cartBtn = document.getElementById("cart-quantity");
   cartBtn.innerText = count;
   const quantity = document.getElementById("quantity");
@@ -89,3 +81,10 @@ function loadProducts() {
 }
 
 loadProducts();
+
+if (!localStorage.getItem("products")) {
+  localStorage.setItem("products", JSON.stringify(data));
+  if (!localStorage.getItem("cart")) {
+    localStorage.setItem("cart", []);
+  }
+}

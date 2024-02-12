@@ -1,16 +1,12 @@
 import { addToCart, removeItem } from "./helper/helper.js";
 import { data } from "./db/db.js";
-if (!localStorage.getItem("products")) {
-  localStorage.setItem("products", JSON.stringify(data));
-  if (!localStorage.getItem("cart")) {
-    localStorage.setItem("cart", []);
-  }
-}
-var products = [];
-var cart = [];
+
+let products = [];
+let cart = [];
+const productContainer = document.getElementById("product-container");
+const cartBtn = document.getElementById("cart-quantity");
 
 function loadProducts() {
-  const productContainer = document.getElementById("product-container");
   productContainer.innerHTML = "";
   products = JSON.parse(localStorage.getItem("products"));
   if (localStorage.getItem("cart"))
@@ -66,7 +62,6 @@ function loadProducts() {
   for (let product of cart) {
     count += product.quantity;
   }
-  const cartBtn = document.getElementById("cart-quantity");
   cartBtn.innerText = count;
 }
 function increaseCart(e) {
@@ -88,6 +83,13 @@ function decreaseCart(e) {
   localStorage.setItem("products", JSON.stringify(data.products));
   localStorage.setItem("cart", JSON.stringify(data.cart));
   loadProducts();
+}
+
+if (!localStorage.getItem("products")) {
+  localStorage.setItem("products", JSON.stringify(data));
+  if (!localStorage.getItem("cart")) {
+    localStorage.setItem("cart", []);
+  }
 }
 
 if (!localStorage.getItem("products")) {
